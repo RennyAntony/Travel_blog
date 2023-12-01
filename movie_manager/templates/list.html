@@ -1,0 +1,27 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+{% block content %}
+<h1>List of Movies</h1> 
+<table>
+<tr><th>Title</th><th>Year</th><th>Description</th><th>Edit/Delete</th></tr>
+{% for movie_obj in movies%}
+<tr>
+<td>{{movie_obj.title | upper }}
+    {% if movie_obj.img %}
+<img src="{{ movie_obj.img.url }}" alt="{{ movie_obj.title }}">
+{% endif %}
+</td>
+
+<td><h3> {{movie_obj.year}}</h3></td>
+<td><h3> {{movie_obj.description | default:'No data available'}} </h3></td>
+<td><a href="{% url 'edit' movie_obj.id %}">Edit</a>/<a href="{% url 'delete' movie_obj.id %}">Delete</a></td>
+</tr>
+{% comment %} {% if movie_obj.success %}
+<p>Movie was success in India</p>
+{% else%}
+<p>Movie was a failure </p>
+{% endif %} {% endcomment %}
+{%endfor%}
+</table>
+ 
+{% endblock %}
